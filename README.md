@@ -7,4 +7,4 @@ for code of concrete lesson.
 
 * Push
   Notifications \[[start](https://github.com/strvcom/android_mendelu_advanced_course/tree/push-notifications)\] \[[end](https://github.com/strvcom/android_mendelu_advanced_course/tree/push-notifications-end)\]
-  * Testing \[[start](https://github.com/strvcom/android_mendelu_advanced_course/tree/testing/start)\] \[[end](https://github.com/strvcom/android_mendelu_advanced_course/tree/testing/end)\]
+* Testing \[[start](https://github.com/strvcom/android_mendelu_advanced_course/tree/testing/start)\] \[[end](https://github.com/strvcom/android_mendelu_advanced_course/tree/testing/end)\]
