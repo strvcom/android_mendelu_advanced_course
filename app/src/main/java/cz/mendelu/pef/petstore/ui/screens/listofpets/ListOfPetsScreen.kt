@@ -29,93 +29,97 @@ const val TestTagListOfPetsScreenLazyList = "TestTagListOfPetsScreenLazyList"
 
 @Composable
 fun ListOfPetsScreen(
-    navigateToPetDetail: (petId: Long) -> Unit,
-    viewModel: ListOfPetsViewModel = hiltViewModel()
+	navigateToPetDetail: (petId: Long) -> Unit,
+	viewModel: ListOfPetsViewModel = hiltViewModel()
 ) {
-    val uiState: MutableState<UiState<List<Pet>, ListOfPetsErrors>> =
-        rememberSaveable { mutableStateOf(UiState()) }
+	val uiState: MutableState<UiState<List<Pet>, ListOfPetsErrors>> =
+		rememberSaveable { mutableStateOf(UiState()) }
 
-    viewModel.petsUIState.value.let {
-        uiState.value = it
-    }
+	viewModel.petsUIState.value.let {
+		uiState.value = it
+	}
 
-    BaseScreen(
-        topBarText = "List of pets",
-        drawFullScreenContent = true,
-        showLoading = uiState.value.loading,
-        placeholderScreenContent = if (uiState.value.errors != null) {
-            PlaceholderScreenContent(
-                null,
-                stringResource(id = uiState.value.errors!!.communicationError)
-            )
-        } else
-            null
-    ) {
-        ListOfPetsScreenContent(
-            paddingValues = it,
-            uiState = uiState.value,
-            onPetDetailClick = navigateToPetDetail,
-        )
-    }
+	BaseScreen(
+		topBarText = "List of pets",
+		drawFullScreenContent = true,
+		showLoading = uiState.value.loading,
+		showLogoutButton = true,
+		onLogoutClick = {
+			viewModel.logout()
+		},
+		placeholderScreenContent = if (uiState.value.errors != null) {
+			PlaceholderScreenContent(
+				null,
+				stringResource(id = uiState.value.errors!!.communicationError)
+			)
+		} else
+			null
+	) {
+		ListOfPetsScreenContent(
+			paddingValues = it,
+			uiState = uiState.value,
+			onPetDetailClick = navigateToPetDetail,
+		)
+	}
 
 }
 
 @Composable
 fun ListOfPetsScreenContent(
-    onPetDetailClick: (petId: Long) -> Unit,
-    paddingValues: PaddingValues,
-    uiState: UiState<List<Pet>, ListOfPetsErrors>
+	onPetDetailClick: (petId: Long) -> Unit,
+	paddingValues: PaddingValues,
+	uiState: UiState<List<Pet>, ListOfPetsErrors>
 ) {
-    LazyColumn(
-        modifier = Modifier
+	LazyColumn(
+		modifier = Modifier
             .fillMaxWidth()
             .padding(paddingValues)
             .testTag(TestTagListOfPetsScreenLazyList),
-    ) {
-        if (uiState.data != null) {
-            uiState.data!!.forEach { pet ->
-                item {
-                    pet.name?.let {
-                        PetItem(
-                            modifier = Modifier
+	) {
+		if (uiState.data != null) {
+			uiState.data!!.forEach { pet ->
+				item {
+					pet.name?.let {
+						PetItem(
+							modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp)
                                 .padding(vertical = 24.dp),
-                            pet = pet,
-                            onPetDetailClick = onPetDetailClick,
-                        )
-                    }
-                }
-            }
-        }
-    }
+							pet = pet,
+							onPetDetailClick = onPetDetailClick,
+						)
+					}
+				}
+			}
+		}
+	}
 }
 
 @Composable
 private fun PetItem(
-    pet: Pet,
-    onPetDetailClick: (petId: Long) -> Unit,
-    modifier: Modifier = Modifier,
+	pet: Pet,
+	onPetDetailClick: (petId: Long) -> Unit,
+	modifier: Modifier = Modifier,
 ) {
-    val coverUrl = pet.photoUrls?.firstOrNull()
+	val coverUrl = pet.photoUrls?.firstOrNull()
 
-    Column(
-        modifier = modifier
-            .clickable { onPetDetailClick(pet.id!!) }
-    ) {
-        coverUrl?.let {
-            AsyncImage(
-                modifier = Modifier
+	Column(
+		modifier = modifier
+			.clickable { onPetDetailClick(pet.id!!) }
+	) {
+		coverUrl?.let {
+			AsyncImage(
+				modifier = Modifier
                     .fillMaxWidth()
                     .height(200.dp),
-                contentScale = ContentScale.FillBounds,
-                model = coverUrl,
-                contentDescription = "Loaded image"
-            )
-            Text(
-                text = pet.name.orEmpty(),
-                color = basicTextColor()
-            )
-        }
-    }
+				contentScale = ContentScale.FillBounds,
+				model = coverUrl,
+				contentDescription = "Loaded image"
+			)
+			Text(
+				text = pet.name.orEmpty(),
+				color = basicTextColor()
+			)
+		}
+	}
 }
