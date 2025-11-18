@@ -90,7 +90,7 @@ fun TextInputField(
             null
         },
         singleLine = true,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
+        colors = OutlinedTextFieldDefaults.colors(
             cursorColor = Blue,
             focusedBorderColor = if (!errorMessage.isNullOrEmpty()) Red else Blue,
             unfocusedBorderColor = if (!errorMessage.isNullOrEmpty()) Red else Gray,
