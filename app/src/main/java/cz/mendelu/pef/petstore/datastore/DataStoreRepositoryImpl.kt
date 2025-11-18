@@ -29,4 +29,11 @@ class DataStoreRepositoryImpl(private val context: Context) : IDataStoreReposito
             false
         }
     }
+
+    override suspend fun logout() {
+        val preferencesKey = booleanPreferencesKey(DataStoreConstants.LOGIN_SUCCESSFUL)
+        context.dataStore.edit { preferences ->
+            preferences[preferencesKey] = false
+        }
+    }
 }
