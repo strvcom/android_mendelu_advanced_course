@@ -38,7 +38,7 @@ captures/
 
 # IntelliJ
 *.iml
-.idea/*
+.idea/
 !.idea/copyright
 # Keep the code styles.
 !/.idea/codeStyles

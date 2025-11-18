@@ -1,7 +1,7 @@
 # Android advanced course on Mendelu
 
 Code for lessons prepared by STRV for Android advanced course on Mendelu university. See branches
-for code of concrete lesson.
+for code of concrete lesson. 
 
 ## Lessons:
 

@@ -8,7 +8,7 @@ import timber.log.Timber
 const val useMockedValues: Boolean = true
 
 @HiltAndroidApp
-class PetsApplication : Application() {
+class PetStoreApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -20,7 +20,7 @@ class PetsApplication : Application() {
         })
     }
 
-    companion object {
+    companion object Companion {
         lateinit var appContext: Context
             private set
     }
